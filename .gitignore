@@ -21,8 +21,13 @@ env/
 *.swp
 *.swo
 
-# Data files (raw only - processed files are included)
+# Data files - Large files excluded (use download link in README)
 data/raw/
+data/processed/*.parquet
+
+# Small preprocessed files are included
+!data/processed/splits/*.pkl
+!data/processed/splits/*.txt
 
 # Model files (trained models - not in pre-training phase)
 models/

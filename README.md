@@ -55,7 +55,27 @@ cd Projet_ALL
 pip install -r requirements.txt
 ```
 
-### 3. Load Preprocessed Data
+### 3. **Download Preprocessed Data** 📥
+
+⚠️ **Important:** The preprocessed `.parquet` files are too large for GitHub (~215 MB total).
+
+**Download them separately:** See [DOWNLOAD_DATA.md](DOWNLOAD_DATA.md) for instructions.
+
+After downloading, your structure should look like:
+```
+data/processed/
+├── features_data.parquet ✅
+├── processed_data.parquet ✅
+└── splits/
+    ├── train.parquet ✅
+    ├── val.parquet ✅
+    ├── test.parquet ✅
+    ├── scaler.pkl (included in repo)
+    ├── imputer.pkl (included in repo)
+    └── preprocessing_metadata.txt (included in repo)
+```
+
+### 4. Load Preprocessed Data
 ```python
 import pandas as pd
 import joblib
