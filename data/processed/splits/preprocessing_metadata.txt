@@ -1,0 +1,86 @@
+============================================================
+PREPROCESSING METADATA
+============================================================
+
+DATASET SPLITS:
+  Train: 725,176 records (2015-2021)
+  Val: 208,218 records (2022-2023)
+  Test: 107,874 records (2024)
+
+FEATURES:
+  Numeric: 57
+  Categorical: 5
+  Total: 62
+
+PREPROCESSING STEPS:
+  1. Chronological split (no shuffling)
+  2. Median imputation (fitted on train)
+  3. StandardScaler (fitted on train)
+
+FEATURE NAMES:
+  1. dewpoint
+  2. wind_direction
+  3. wind_speed
+  4. sea_level_pressure
+  5. relative_humidity
+  6. heat_index
+  7. hour_sin
+  8. hour_cos
+  9. day_of_week_sin
+  10. day_of_week_cos
+  11. day_of_year_sin
+  12. day_of_year_cos
+  13. month_sin
+  14. month_cos
+  15. temperature_lag_1h
+  16. temperature_lag_3h
+  17. temperature_lag_6h
+  18. temperature_lag_12h
+  19. temperature_lag_24h
+  20. temperature_lag_48h
+  21. temperature_lag_168h
+  22. dewpoint_lag_1h
+  23. dewpoint_lag_3h
+  24. dewpoint_lag_6h
+  25. dewpoint_lag_12h
+  26. dewpoint_lag_24h
+  27. dewpoint_lag_48h
+  28. dewpoint_lag_168h
+  29. sea_level_pressure_lag_1h
+  30. sea_level_pressure_lag_3h
+  31. sea_level_pressure_lag_6h
+  32. sea_level_pressure_lag_12h
+  33. sea_level_pressure_lag_24h
+  34. sea_level_pressure_lag_48h
+  35. sea_level_pressure_lag_168h
+  36. temperature_ma_24h
+  37. temperature_std_24h
+  38. temperature_min_24h
+  39. temperature_max_24h
+  40. temperature_ma_168h
+  41. temperature_std_168h
+  42. temperature_min_168h
+  43. temperature_max_168h
+  44. dewpoint_ma_24h
+  45. dewpoint_std_24h
+  46. dewpoint_min_24h
+  47. dewpoint_max_24h
+  48. dewpoint_ma_168h
+  49. dewpoint_std_168h
+  50. dewpoint_min_168h
+  51. dewpoint_max_168h
+  52. temp_dewpoint_diff
+  53. temp_dewpoint_product
+  54. temp_dewpoint_ratio
+  55. temp_pressure_product
+  56. hour_month_interaction
+  57. wind_chill_approx
+  58. station_id
+  59. station_code
+  60. station_name
+  61. city
+  62. climate_zone
+
+============================================================
+Ready for model training!
+============================================================

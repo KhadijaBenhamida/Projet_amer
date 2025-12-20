@@ -1,0 +1,49 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb_checkpoints
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Data files (raw only - processed files are included)
+data/raw/
+
+# Model files (trained models - not in pre-training phase)
+models/
+*.h5
+*.pt
+
+# Reports (generated files)
+reports/*.html
+reports/figures/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+
+# Temporary files
+*.tmp
+*.log
+
+# Docker & Infrastructure
+docker-compose.yml
+*.dockerfile
