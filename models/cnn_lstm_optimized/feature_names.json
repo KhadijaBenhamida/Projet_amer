@@ -1,0 +1,13 @@
+[
+  "wind_speed",
+  "wind_direction",
+  "dewpoint",
+  "hour_sin",
+  "hour_cos",
+  "month_sin",
+  "month_cos",
+  "day_of_week_sin",
+  "day_of_week_cos",
+  "day_of_year_sin",
+  "day_of_year_cos"
+]
