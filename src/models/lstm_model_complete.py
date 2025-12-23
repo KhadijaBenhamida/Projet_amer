@@ -59,7 +59,6 @@ class LSTMTemperatureModel:
             from tensorflow.keras.models import Sequential
             from tensorflow.keras.layers import LSTM, Dense, Dropout
             from tensorflow.keras.optimizers import Adam
-            from tensorflow.keras.callbacks import EarlyStopping, ReduceLROnPlateau
             
             self.model = Sequential([
                 LSTM(128, return_sequences=True, input_shape=(self.sequence_length, self.n_features)),
@@ -236,24 +235,175 @@ class LSTMTemperatureModel:
         
         # Prédire
         predictions = self.model.predict(X_seq, verbose=0)
+        return predictions.flatten()
+        
     def save(self, path):
-        """Save model."""
+        """
+        Sauvegarde le modèle LSTM.
+        
+        Args:
+            path: Chemin où sauvegarder le modèle (.h5 ou .keras)
+        """
         if self.model:
             self.model.save(path)
-            logger.info(f"✅ Model saved to {path}")
+            logger.info(f"✅ Modèle sauvegardé: {path}")
+            
+            # Sauvegarder l'historique si disponible
+            if self.history:
+                history_path = Path(path).parent / 'lstm_history.json'
+                with open(history_path, 'w') as f:
+                    json.dump(self.history.history, f, indent=2)
+                logger.info(f"✅ Historique sauvegardé: {history_path}")
+        else:
+            logger.warning("⚠️  Aucun modèle à sauvegarder")
             
     def load(self, path):
-        """Load model."""
+        """
+        Charge un modèle LSTM sauvegardé.
+        
+        Args:
+            path: Chemin du modèle à charger
+        """
         from tensorflow.keras.models import load_model
         self.model = load_model(path)
-        logger.info(f"✅ Model loaded from {path}")
+        logger.info(f"✅ Modèle chargé: {path}")
+        
+    def plot_history(self, save_path=None):
+        """
+        Trace les courbes d'apprentissage (loss et MAE).
+        
+        Args:
+            save_path: Chemin où sauvegarder le graphique (optionnel)
+        """
+        if not self.history:
+            logger.warning("⚠️  Pas d'historique disponible")
+            return
+            
+        import matplotlib.pyplot as plt
+        
+        fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 5))
+        
+        # Loss
+        ax1.plot(self.history.history['loss'], label='Train Loss')
+        ax1.plot(self.history.history['val_loss'], label='Val Loss')
+        ax1.set_xlabel('Epoch')
+        ax1.set_ylabel('Loss (MSE)')
+        ax1.set_title('Model Loss')
+        ax1.legend()
+        ax1.grid(True)
+        
+        # MAE
+        ax2.plot(self.history.history['mae'], label='Train MAE')
+        ax2.plot(self.history.history['val_mae'], label='Val MAE')
+        ax2.set_xlabel('Epoch')
+        ax2.set_ylabel('MAE (°C)')
+        ax2.set_title('Model MAE')
+        ax2.legend()
+        ax2.grid(True)
+        
+        plt.tight_layout()
+        
+        if save_path:
+            plt.savefig(save_path, dpi=300, bbox_inches='tight')
+            logger.info(f"✅ Graphique sauvegardé: {save_path}")
+        else:
+            plt.show()
 
 
 def main():
-    """Main function - placeholder."""
-    logger.warning("⚠️  LSTM training not implemented")
-    logger.info("📊 Recommended: Use src/models/xgboost_model.py instead")
-    logger.info("   XGBoost achieved RMSE=0.0462°C on test set")
+    """
+    Fonction principale : Entraîne et évalue le modèle LSTM.
+    """
+    logger.info("=" * 80)
+    logger.info("🧠 LSTM TRAINING - Climate Temperature Prediction")
+    logger.info("=" * 80)
+    
+    # Chemins
+    base_path = Path(__file__).parent.parent.parent
+    data_path = base_path / 'data' / 'processed' / 'splits'
+    model_path = base_path / 'models' / 'lstm'
+    model_path.mkdir(parents=True, exist_ok=True)
+    
+    # Charger les données
+    logger.info("📂 Chargement des données...")
+    train = pd.read_parquet(data_path / 'train.parquet')
+    val = pd.read_parquet(data_path / 'val.parquet')
+    test = pd.read_parquet(data_path / 'test.parquet')
+    
+    logger.info(f"   Train: {train.shape}")
+    logger.info(f"   Val: {val.shape}")
+    logger.info(f"   Test: {test.shape}")
+    
+    # Charger scaler et imputer
+    logger.info("📂 Chargement du preprocessing...")
+    with open(data_path / 'scaler_new.pkl', 'rb') as f:
+        scaler = pickle.load(f)
+    with open(data_path / 'imputer_new.pkl', 'rb') as f:
+        imputer = pickle.load(f)
+    
+    # Séparation X et y
+    X_train = train.drop('temperature', axis=1)
+    y_train = train['temperature'].values
+    X_val = val.drop('temperature', axis=1)
+    y_val = val['temperature'].values
+    X_test = test.drop('temperature', axis=1)
+    y_test = test['temperature'].values
+    
+    # Sélectionner colonnes numériques
+    numeric_cols = X_train.select_dtypes(include=['int64', 'float64', 'int32', 'float32']).columns
+    logger.info(f"   Features numériques: {len(numeric_cols)}")
+    
+    X_train_num = X_train[numeric_cols].values
+    X_val_num = X_val[numeric_cols].values
+    X_test_num = X_test[numeric_cols].values
+    
+    # Preprocessing
+    logger.info("🔧 Preprocessing...")
+    X_train_imputed = imputer.transform(X_train_num)
+    X_train_scaled = scaler.transform(X_train_imputed)
+    
+    X_val_imputed = imputer.transform(X_val_num)
+    X_val_scaled = scaler.transform(X_val_imputed)
+    
+    X_test_imputed = imputer.transform(X_test_num)
+    X_test_scaled = scaler.transform(X_test_imputed)
+    
+    # Initialiser et entraîner LSTM
+    logger.info("\n" + "=" * 80)
+    logger.info("🚀 ENTRAÎNEMENT LSTM")
+    logger.info("=" * 80)
+    
+    lstm_model = LSTMTemperatureModel(sequence_length=24, n_features=len(numeric_cols))
+    history = lstm_model.fit(
+        X_train_scaled, y_train,
+        X_val_scaled, y_val,
+        epochs=50,
+        batch_size=256
+    )
+    
+    # Évaluation
+    logger.info("\n" + "=" * 80)
+    logger.info("📊 ÉVALUATION")
+    logger.info("=" * 80)
+    
+    metrics = lstm_model.evaluate(X_test_scaled, y_test)
+    
+    # Sauvegarder
+    logger.info("\n" + "=" * 80)
+    logger.info("💾 SAUVEGARDE")
+    logger.info("=" * 80)
+    
+    lstm_model.save(model_path / 'lstm_model.h5')
+    lstm_model.plot_history(save_path=model_path / 'training_curves.png')
+    
+    # Sauvegarder métriques
+    metrics_df = pd.DataFrame([metrics])
+    metrics_df.to_csv(model_path / 'lstm_metrics.csv', index=False)
+    logger.info(f"✅ Métriques sauvegardées: {model_path / 'lstm_metrics.csv'}")
+    
+    logger.info("\n" + "=" * 80)
+    logger.info("✅ LSTM TRAINING TERMINÉ")
+    logger.info("=" * 80)
 
 
 if __name__ == "__main__":
