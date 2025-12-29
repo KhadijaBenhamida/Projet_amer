@@ -1,0 +1,24 @@
+{
+  "n_samples": 725176,
+  "n_features": 67,
+  "target_mean": 16.453668764548198,
+  "target_std": 10.266298039168596,
+  "top_correlation": 0.9990472922864191,
+  "r2_linear": 0.9998685193755549,
+  "r2_nonlinear": 0.9999923394968232,
+  "linearity_score": 0.9998685193755549,
+  "complexity_gain": 0.00012382012126832542,
+  "best_approach": "linear",
+  "top_10_features": {
+    "wind_chill_approx": 0.9990472922864191,
+    "temp_dewpoint_ratio": 0.9981580186673453,
+    "heat_index": 0.994237895176466,
+    "temp_pressure_product": 0.9234923704520752,
+    "dewpoint": 0.7159606688500135,
+    "temperature_ma_24h": 0.7036061248854635,
+    "temp_dewpoint_product": 0.657696741704289,
+    "temperature_min_24h": 0.6550014966622555,
+    "temperature_ma_168h": 0.6371088085432028,
+    "dewpoint_ma_168h": 0.6256380954091725
+  }
+}

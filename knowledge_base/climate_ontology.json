@@ -1,0 +1,148 @@
+{
+  "meta": {
+    "version": "1.0",
+    "created": "2025-01-01",
+    "description": "Ontologie événements climatiques extrêmes",
+    "author": "System"
+  },
+  "concepts": {
+    "Canicule": {
+      "description": "Période de températures très élevées",
+      "parent": "EvenementClimatique",
+      "aliases": [
+        "Heatwave",
+        "Chaleur_extreme",
+        "Forte_chaleur"
+      ],
+      "properties": {
+        "temperature_seuil_min": 33,
+        "temperature_seuil_severe": 37,
+        "temperature_seuil_extreme": 42,
+        "duree_min_heures": 72,
+        "humidite_facteur": true
+      },
+      "impacts": [
+        "Risque_sante_publique",
+        "Surmortalite",
+        "Deshydratation",
+        "Incendies_foret",
+        "Pics_consommation_energie"
+      ],
+      "populations_vulnerables": [
+        "Personnes_agees",
+        "Enfants",
+        "Malades_chroniques",
+        "Travailleurs_exterieurs"
+      ]
+    },
+    "VagueFroid": {
+      "description": "Période de températures très basses",
+      "parent": "EvenementClimatique",
+      "aliases": [
+        "Cold_wave",
+        "Grand_froid"
+      ],
+      "properties": {
+        "temperature_seuil_max": -5,
+        "temperature_seuil_severe": -10,
+        "temperature_seuil_extreme": -20,
+        "duree_min_heures": 72,
+        "vent_facteur": true,
+        "wind_chill": true
+      },
+      "impacts": [
+        "Hypothermie",
+        "Gel_infrastructures",
+        "Accidents_route",
+        "Pics_consommation_energie"
+      ],
+      "populations_vulnerables": [
+        "Sans_abri",
+        "Personnes_isolees",
+        "Enfants"
+      ]
+    },
+    "Secheresse": {
+      "description": "Déficit prolongé en précipitations",
+      "parent": "EvenementClimatique",
+      "aliases": [
+        "Drought"
+      ],
+      "properties": {
+        "precipitation_seuil": 2.5,
+        "duree_min_jours": 30,
+        "evapotranspiration_facteur": true
+      },
+      "impacts": [
+        "Restrictions_eau",
+        "Pertes_agricoles",
+        "Incendies_foret",
+        "Ecosystemes_fragilises"
+      ]
+    },
+    "PrecipitationIntense": {
+      "description": "Pluies très importantes en courte durée",
+      "parent": "EvenementClimatique",
+      "aliases": [
+        "Heavy_rain",
+        "Pluie_diluvienne"
+      ],
+      "properties": {
+        "precipitation_seuil_1h": 40,
+        "precipitation_seuil_24h": 100,
+        "duree_min_heures": 1
+      },
+      "impacts": [
+        "Inondations",
+        "Glissements_terrain",
+        "Debordements_cours_eau",
+        "Perturbations_transports"
+      ]
+    }
+  },
+  "relations": {
+    "precede": {
+      "description": "Un événement précède un autre",
+      "examples": [
+        [
+          "Secheresse",
+          "Canicule"
+        ],
+        [
+          "Canicule",
+          "Incendie_foret"
+        ]
+      ]
+    },
+    "aggrave": {
+      "description": "Un événement aggrave un autre",
+      "examples": [
+        [
+          "Vent_fort",
+          "Canicule"
+        ],
+        [
+          "Humidite_haute",
+          "Canicule"
+        ],
+        [
+          "Vent_fort",
+          "VagueFroid"
+        ]
+      ]
+    },
+    "favorise": {
+      "description": "Un événement favorise l'apparition d'un autre",
+      "examples": [
+        [
+          "Secheresse",
+          "Incendie"
+        ],
+        [
+          "Chaleur",
+          "Orage"
+        ]
+      ]
+    }
+  }
+}

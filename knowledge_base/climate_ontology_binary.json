@@ -1,0 +1,114 @@
+{
+  "meta": {
+    "version": "2.0",
+    "approach": "binary_lstm_plus_ontology",
+    "description": "LSTM detecte anomalie, Ontologie identifie type"
+  },
+  "concepts": {
+    "Canicule": {
+      "definition": "Temperature anormalement elevee prolongee",
+      "seuil_extreme": "P99 adaptatif par station",
+      "seuil_forte": "P95 adaptatif",
+      "impacts": [
+        "Surmortalite",
+        "Pics energie",
+        "Incendies"
+      ],
+      "populations_vulnerables": [
+        "Personnes agees",
+        "Enfants",
+        "Malades chroniques"
+      ]
+    },
+    "VagueFroid": {
+      "definition": "Temperature anormalement basse prolongee",
+      "seuil_extreme": "P01 adaptatif par station",
+      "seuil_prolonge": "P05 adaptatif",
+      "impacts": [
+        "Hypothermie",
+        "Gel infrastructures",
+        "Accidents"
+      ],
+      "populations_vulnerables": [
+        "Sans-abri",
+        "Isoles",
+        "Enfants"
+      ]
+    },
+    "Secheresse": {
+      "definition": "Deficit precipitations prolonge",
+      "seuil": "< 2.5mm/jour pendant 30 jours",
+      "impacts": [
+        "Agriculture",
+        "Restrictions eau",
+        "Incendies foret"
+      ]
+    }
+  },
+  "rules": [
+    {
+      "id": "R1",
+      "name": "Canicule_Extreme",
+      "condition": "IF temperature > P99_station THEN",
+      "conclusion": "Canicule extreme",
+      "alert_level": "ROUGE",
+      "severity": 5,
+      "confidence": 1.0,
+      "recommendations": [
+        "Rester interieur climatise",
+        "Hydratation frequente",
+        "Eviter efforts physiques 11h-17h",
+        "Surveiller personnes vulnerables"
+      ]
+    },
+    {
+      "id": "R2",
+      "name": "Forte_Chaleur",
+      "condition": "IF P95_station < temperature <= P99_station THEN",
+      "conclusion": "Forte chaleur",
+      "alert_level": "ORANGE",
+      "severity": 3,
+      "confidence": 0.95,
+      "recommendations": [
+        "Limiter activites exterieures",
+        "Boire regulierement",
+        "Fermer volets heures chaudes"
+      ]
+    },
+    {
+      "id": "R3",
+      "name": "Froid_Extreme",
+      "condition": "IF temperature < P01_station THEN",
+      "conclusion": "Froid extreme",
+      "alert_level": "ROUGE",
+      "severity": 5,
+      "confidence": 1.0,
+      "recommendations": [
+        "Limiter sorties exterieur",
+        "Proteger extremites (mains, visage)",
+        "Verifier isolation logement",
+        "Attention gelures rapides (<5min exposition)"
+      ]
+    },
+    {
+      "id": "R4",
+      "name": "Froid_Prolonge",
+      "condition": "IF P01_station <= temperature < P05_station THEN",
+      "conclusion": "Froid prolonge",
+      "alert_level": "ORANGE",
+      "severity": 3,
+      "confidence": 0.95,
+      "recommendations": [
+        "Habillement chaud",
+        "Chauffage adequat",
+        "Attention personnes isolees"
+      ]
+    }
+  ],
+  "identification_function": {
+    "name": "identify_event_type",
+    "description": "Applique regles IF-THEN pour identifier type evenement",
+    "input": "temperature, station_id",
+    "output": "event_type, severity, alert_level, rule_id, recommendations"
+  }
+}

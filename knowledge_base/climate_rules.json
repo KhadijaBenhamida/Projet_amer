@@ -1,0 +1,175 @@
+{
+  "meta": {
+    "version": "1.0",
+    "num_rules": 8,
+    "created": "2025-12-28T17:16:22.918446"
+  },
+  "rules": [
+    {
+      "name": "CANICULE_EXTREME",
+      "conditions": [
+        [
+          "temp_rolling_48h",
+          ">=",
+          42
+        ]
+      ],
+      "conclusion": {
+        "event_type": "CANICULE",
+        "severity": "EXTREME",
+        "alert_level": "ROUGE"
+      },
+      "confidence": 1.0,
+      "description": "Canicule extrême: température >= 42°C sur 48h"
+    },
+    {
+      "name": "CANICULE_SEVERE",
+      "conditions": [
+        [
+          "temp_rolling_48h",
+          ">=",
+          37
+        ],
+        [
+          "temp_rolling_48h",
+          "<",
+          42
+        ]
+      ],
+      "conclusion": {
+        "event_type": "CANICULE",
+        "severity": "SEVERE",
+        "alert_level": "ORANGE"
+      },
+      "confidence": 0.95,
+      "description": "Canicule sévère: température 37-42°C sur 48h"
+    },
+    {
+      "name": "CANICULE_MODERATE",
+      "conditions": [
+        [
+          "temp_rolling_48h",
+          ">=",
+          33
+        ],
+        [
+          "temp_rolling_48h",
+          "<",
+          37
+        ]
+      ],
+      "conclusion": {
+        "event_type": "CANICULE",
+        "severity": "MODERE",
+        "alert_level": "JAUNE"
+      },
+      "confidence": 0.9,
+      "description": "Canicule modérée: température 33-37°C sur 48h"
+    },
+    {
+      "name": "CANICULE_FORTE_CHALEUR",
+      "conditions": [
+        [
+          "temp_rolling_48h",
+          ">=",
+          28
+        ],
+        [
+          "temp_rolling_48h",
+          "<",
+          33
+        ]
+      ],
+      "conclusion": {
+        "event_type": "CANICULE",
+        "severity": "FAIBLE",
+        "alert_level": "VERT"
+      },
+      "confidence": 0.8,
+      "description": "Forte chaleur: température 28-33°C sur 48h"
+    },
+    {
+      "name": "FROID_EXTREME",
+      "conditions": [
+        [
+          "temp_rolling_48h",
+          "<=",
+          -20
+        ]
+      ],
+      "conclusion": {
+        "event_type": "VAGUE_FROID",
+        "severity": "EXTREME",
+        "alert_level": "ROUGE"
+      },
+      "confidence": 1.0,
+      "description": "Froid extrême: température <= -20°C sur 48h"
+    },
+    {
+      "name": "FROID_SEVERE",
+      "conditions": [
+        [
+          "temp_rolling_48h",
+          "<=",
+          -10
+        ],
+        [
+          "temp_rolling_48h",
+          ">",
+          -20
+        ]
+      ],
+      "conclusion": {
+        "event_type": "VAGUE_FROID",
+        "severity": "SEVERE",
+        "alert_level": "ORANGE"
+      },
+      "confidence": 0.95,
+      "description": "Froid sévère: température -10 à -20°C sur 48h"
+    },
+    {
+      "name": "FROID_MODERATE",
+      "conditions": [
+        [
+          "temp_rolling_48h",
+          "<=",
+          -5
+        ],
+        [
+          "temp_rolling_48h",
+          ">",
+          -10
+        ]
+      ],
+      "conclusion": {
+        "event_type": "VAGUE_FROID",
+        "severity": "MODERE",
+        "alert_level": "JAUNE"
+      },
+      "confidence": 0.9,
+      "description": "Froid modéré: température -5 à -10°C sur 48h"
+    },
+    {
+      "name": "FROID_GEL_PROLONGE",
+      "conditions": [
+        [
+          "temp_rolling_48h",
+          "<=",
+          2
+        ],
+        [
+          "temp_rolling_48h",
+          ">",
+          -5
+        ]
+      ],
+      "conclusion": {
+        "event_type": "VAGUE_FROID",
+        "severity": "FAIBLE",
+        "alert_level": "VERT"
+      },
+      "confidence": 0.8,
+      "description": "Gel prolongé: température 0-2°C sur 48h"
+    }
+  ]
+}

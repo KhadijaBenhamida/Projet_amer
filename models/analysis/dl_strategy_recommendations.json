@@ -1,0 +1,42 @@
+{
+  "baseline_linear": 0.15889576935199207,
+  "best_classic": {
+    "name": "S1: TOUT_Ridge",
+    "rmse": 0.15889576935199207,
+    "r2": 0.9997509737059175
+  },
+  "scenarios": {
+    "raw_only": {
+      "n_features": 19,
+      "ridge_rmse": 2.508641378584879,
+      "features": [
+        "year",
+        "month",
+        "day",
+        "hour",
+        "minute",
+        "dewpoint",
+        "wind_direction",
+        "wind_speed",
+        "sea_level_pressure",
+        "relative_humidity"
+      ]
+    }
+  },
+  "problem_type": "highly_linear",
+  "dl_viability": "challenging",
+  "recommended_strategy": "raw_only_lstm",
+  "top_features": {
+    "high_correlation": [
+      "wind_chill_approx",
+      "temp_dewpoint_ratio",
+      "heat_index",
+      "temp_pressure_product"
+    ],
+    "counts": {
+      "high": 4,
+      "medium": 13,
+      "low": 45
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "class_weights": {
+    "0": 0.8737755050401598,
+    "1": 1.1688506780912225
+  },
+  "imbalance_ratio": 1.3377013561824447,
+  "event_labels": {
+    "0": "Normal",
+    "1": "Evenement_Extreme"
+  },
+  "num_classes": 2,
+  "use_focal_loss": false,
+  "approach": "binary"
+}

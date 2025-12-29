@@ -1,0 +1,65 @@
+{
+  "problems_detected": {
+    "Curse of Dimensionality": false,
+    "Distribution Simple": false,
+    "Multicollinearite": false,
+    "Features Engineered >50%": true,
+    "Peu Structure Temporelle": true,
+    "SNR Excellent (Linear suffit)": false,
+    "Volume Insuffisant pour DL": true
+  },
+  "critical_count": 3,
+  "statistics": {
+    "samples": 725176,
+    "features": 62,
+    "ratio_samples_features": 11696.387096774193,
+    "engineered_features_pct": 66.12903225806451,
+    "high_corr_pairs": 8,
+    "outliers_pct": 0.4895363332487562,
+    "snr": null,
+    "ratio_lstm_params": 2.023189893759486
+  },
+  "recommendation": "DL potentially viable",
+  "top_engineered_features": [
+    [
+      "temp_dewpoint_ratio",
+      0.9981580186673452
+    ],
+    [
+      "temp_pressure_product",
+      0.9234923704520753
+    ],
+    [
+      "temperature_ma_24h",
+      0.7036061248854635
+    ],
+    [
+      "temp_dewpoint_product",
+      0.657696741704289
+    ],
+    [
+      "temperature_min_24h",
+      0.6550014966622556
+    ],
+    [
+      "temperature_ma_168h",
+      0.6371088085432028
+    ],
+    [
+      "dewpoint_ma_168h",
+      0.6256380954091725
+    ],
+    [
+      "dewpoint_ma_24h",
+      0.6233431199136054
+    ],
+    [
+      "temperature_min_168h",
+      0.6130174728156066
+    ],
+    [
+      "temperature_max_24h",
+      0.6022961052789424
+    ]
+  ]
+}

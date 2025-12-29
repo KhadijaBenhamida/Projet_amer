@@ -1,0 +1,10 @@
+Modele,Type,Features,RMSE,R2,Temps_min,Status
+Linear Regression,Linear,68,0.16,0.9998,0.5,OPTIMAL
+Ridge (ALL),Linear,68,0.159,0.9998,1.0,Excellent
+GradientBoost (ALL),Tree,68,0.191,0.9996,15.0,Bon
+GradientBoost (RAW),Tree,19,1.123,0.9876,10.0,Bon sur RAW
+Ridge (RAW),Linear,19,2.509,0.9379,0.5,Moyen
+LSTM RAW v3,Deep Learning,19,6.0,0.65,1800.0,Échec
+CNN-LSTM v2,Deep Learning,38,7.48,0.45,180.0,Échec
+LSTM Original,Deep Learning,62,6.2,0.62,120.0,Échec
+CNN-LSTM v1,Deep Learning,11,11.23,-0.24,120.0,Échec Total

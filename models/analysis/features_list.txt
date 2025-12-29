@@ -1,0 +1,101 @@
+================================================================================
+LISTE COMPLETE DES 62 FEATURES
+================================================================================
+
+
+RAW Meteorologiques (6 features):
+------------------------------------------------------------
+   1. dewpoint                            corr=0.7160
+   2. minute                              corr=0.0213
+   3. relative_humidity                   corr=0.3196
+   4. sea_level_pressure                  corr=0.3334
+   5. wind_direction                      corr=0.0673
+   6. wind_speed                          corr=0.0630
+
+RAW Temporels (5 features):
+------------------------------------------------------------
+   7. day                                 corr=0.0049
+   8. hour                                corr=0.0990
+   9. hour_month_interaction              corr=0.1822
+  10. month                               corr=0.1815
+  11. year                                corr=0.0038
+
+Engineered (Ratios/Products) (5 features):
+------------------------------------------------------------
+  12. heat_index                          corr=0.9942
+  13. temp_dewpoint_product               corr=0.6577
+  14. temp_dewpoint_ratio                 corr=0.9982
+  15. temp_pressure_product               corr=0.9235
+  16. wind_chill_approx                   corr=0.9990
+
+Lags (21 features):
+------------------------------------------------------------
+  17. dewpoint_lag_12h                    corr=0.3807
+  18. dewpoint_lag_168h                   corr=0.3769
+  19. dewpoint_lag_1h                     corr=0.3468
+  20. dewpoint_lag_24h                    corr=0.3748
+  21. dewpoint_lag_3h                     corr=0.3377
+  22. dewpoint_lag_48h                    corr=0.3763
+  23. dewpoint_lag_6h                     corr=0.3642
+  24. sea_level_pressure_lag_12h          corr=0.1672
+  25. sea_level_pressure_lag_168h         corr=0.1616
+  26. sea_level_pressure_lag_1h           corr=0.1390
+  27. sea_level_pressure_lag_24h          corr=0.1607
+  28. sea_level_pressure_lag_3h           corr=0.1574
+  29. sea_level_pressure_lag_48h          corr=0.1515
+  30. sea_level_pressure_lag_6h           corr=0.1708
+  31. temperature_lag_12h                 corr=0.4832
+  32. temperature_lag_168h                corr=0.3909
+  33. temperature_lag_1h                  corr=0.4207
+  34. temperature_lag_24h                 corr=0.4684
+  35. temperature_lag_3h                  corr=0.4410
+  36. temperature_lag_48h                 corr=0.4464
+  37. temperature_lag_6h                  corr=0.4625
+
+Rolling Stats (MA/Min/Max/Std) (16 features):
+------------------------------------------------------------
+  38. dewpoint_ma_168h                    corr=0.6256
+  39. dewpoint_ma_24h                     corr=0.6233
+  40. dewpoint_max_168h                   corr=0.4390
+  41. dewpoint_max_24h                    corr=0.4245
+  42. dewpoint_min_168h                   corr=0.5469
+  43. dewpoint_min_24h                    corr=0.5354
+  44. dewpoint_std_168h                   corr=0.4515
+  45. dewpoint_std_24h                    corr=0.3943
+  46. temperature_ma_168h                 corr=0.6371
+  47. temperature_ma_24h                  corr=0.7036
+  48. temperature_max_168h                corr=0.5724
+  49. temperature_max_24h                 corr=0.6023
+  50. temperature_min_168h                corr=0.6130
+  51. temperature_min_24h                 corr=0.6550
+  52. temperature_std_168h                corr=0.4910
+  53. temperature_std_24h                 corr=0.4501
+
+Diffs (1 features):
+------------------------------------------------------------
+  54. temp_dewpoint_diff                  corr=0.4113
+
+Cycliques (sin/cos) (8 features):
+------------------------------------------------------------
+  55. day_of_week_cos                     corr=0.0024
+  56. day_of_week_sin                     corr=0.0046
+  57. day_of_year_cos                     corr=0.5758
+  58. day_of_year_sin                     corr=0.2487
+  59. hour_cos                            corr=0.1445
+  60. hour_sin                            corr=0.1464
+  61. month_cos                           corr=0.4851
+  62. month_sin                           corr=0.3866
+
+================================================================================
+TOP 10 FEATURES (Correlation)
+================================================================================
+   1. wind_chill_approx                   0.9990
+   2. temp_dewpoint_ratio                 0.9982
+   3. heat_index                          0.9942
+   4. temp_pressure_product               0.9235
+   5. dewpoint                            0.7160
+   6. temperature_ma_24h                  0.7036
+   7. temp_dewpoint_product               0.6577
+   8. temperature_min_24h                 0.6550
+   9. temperature_ma_168h                 0.6371
+  10. dewpoint_ma_168h                    0.6256
